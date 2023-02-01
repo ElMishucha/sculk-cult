@@ -1,7 +1,8 @@
 package net.el_mishucha.sculk_cult.networking;
 
 import net.el_mishucha.sculk_cult.SculkCultMod;
-import net.el_mishucha.sculk_cult.networking.pocket.ChargeDataSyncS2CPocket;
+import net.el_mishucha.sculk_cult.networking.pocket.InfectionDataSyncS2CPocket;
+import net.el_mishucha.sculk_cult.networking.pocket.SculkChargeDataSyncS2CPocket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -28,10 +29,15 @@ public class ModMessages {
 
         INSTANCE = net;
 
-        net.messageBuilder(ChargeDataSyncS2CPocket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ChargeDataSyncS2CPocket::new)
-                .encoder(ChargeDataSyncS2CPocket::toBytes)
-                .consumerMainThread(ChargeDataSyncS2CPocket::handle)
+        net.messageBuilder(SculkChargeDataSyncS2CPocket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SculkChargeDataSyncS2CPocket::new)
+                .encoder(SculkChargeDataSyncS2CPocket::toBytes)
+                .consumerMainThread(SculkChargeDataSyncS2CPocket::handle)
+                .add();
+        net.messageBuilder(InfectionDataSyncS2CPocket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(InfectionDataSyncS2CPocket::new)
+                .encoder(InfectionDataSyncS2CPocket::toBytes)
+                .consumerMainThread(InfectionDataSyncS2CPocket::handle)
                 .add();
     }
 

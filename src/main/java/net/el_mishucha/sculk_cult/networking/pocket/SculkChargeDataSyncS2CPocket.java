@@ -1,19 +1,19 @@
 package net.el_mishucha.sculk_cult.networking.pocket;
 
-import net.el_mishucha.sculk_cult.client.ClientChargeData;
+import net.el_mishucha.sculk_cult.client.sculk_charge.ClientSculkChargeData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class ChargeDataSyncS2CPocket {
+public class SculkChargeDataSyncS2CPocket {
     private final float charge;
 
-    public ChargeDataSyncS2CPocket(float charge) {
+    public SculkChargeDataSyncS2CPocket(float charge) {
         this.charge = charge;
     }
 
-    public ChargeDataSyncS2CPocket(FriendlyByteBuf buf) {
+    public SculkChargeDataSyncS2CPocket(FriendlyByteBuf buf) {
         this.charge = buf.readFloat();
     }
 
@@ -25,7 +25,7 @@ public class ChargeDataSyncS2CPocket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
-            ClientChargeData.set(charge);
+            ClientSculkChargeData.set(charge);
         });
         return true;
     }

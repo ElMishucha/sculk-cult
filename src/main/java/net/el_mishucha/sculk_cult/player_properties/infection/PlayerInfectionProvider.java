@@ -1,4 +1,4 @@
-package net.el_mishucha.sculk_cult.sculk_charge;
+package net.el_mishucha.sculk_cult.player_properties.infection;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -11,23 +11,23 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PlayerSculkChargeProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    public static Capability<PlayerSculkCharge> PLAYER_CHARGE = CapabilityManager.get(new CapabilityToken<PlayerSculkCharge>() {} );
+public class PlayerInfectionProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
+    public static Capability<PlayerInfection> PLAYER_INFECTION = CapabilityManager.get(new CapabilityToken<PlayerInfection>() {} );
 
-    private PlayerSculkCharge charge = null;
-    private final LazyOptional<PlayerSculkCharge> optional = LazyOptional.of(this::createPlayerSculkCharge);
+    private PlayerInfection infection = null;
+    private final LazyOptional<PlayerInfection> optional = LazyOptional.of(this::createPlayerInfection);
 
-    private PlayerSculkCharge createPlayerSculkCharge() {
-        if (this.charge == null) {
-            this.charge = new PlayerSculkCharge();
+    private PlayerInfection createPlayerInfection() {
+        if (this.infection == null) {
+            this.infection = new PlayerInfection();
         }
 
-        return this.charge;
+        return this.infection;
     }
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == PLAYER_CHARGE) {
+        if (cap == PLAYER_INFECTION) {
             return optional.cast();
         }
 
@@ -37,12 +37,12 @@ public class PlayerSculkChargeProvider implements ICapabilityProvider, INBTSeria
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
-        createPlayerSculkCharge().saveNBTData(nbt);
+        createPlayerInfection().saveNBTData(nbt);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        createPlayerSculkCharge().lodNBTData(nbt);
+        createPlayerInfection().lodNBTData(nbt);
     }
 }

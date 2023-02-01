@@ -1,4 +1,4 @@
-package net.el_mishucha.sculk_cult.sculk_charge;
+package net.el_mishucha.sculk_cult.player_properties.sculk_charge;
 
 import net.minecraft.nbt.CompoundTag;
 
@@ -6,7 +6,6 @@ public class PlayerSculkCharge {
     static public final float MIN_CHARGE = 0;
     static public final float MAX_CHARGE = 10;
     private float charge = MAX_CHARGE;
-    private boolean infected = false;
 
     public float getCharge() {
         return charge;
@@ -19,10 +18,6 @@ public class PlayerSculkCharge {
     public void subCharge(float sub) {
         this.charge = Math.max(charge - sub, MIN_CHARGE);
     }
-
-    public boolean getInfected() { return infected; }
-
-    public void setInfected(boolean value) { this.infected = value; }
 
     public void copyFrom(PlayerSculkCharge source) {
         this.charge = source.charge;
